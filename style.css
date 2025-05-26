@@ -1,0 +1,106 @@
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #f5f6fa;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 400px;
+  margin: 80px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 32px 24px;
+  text-align: center;
+}
+#notice-link {
+  display: inline-block;
+  margin-top: 24px;
+  font-size: 1.5rem;
+  color: #fff;
+  background: #2d8cf0;
+  padding: 12px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+#notice-link:hover {
+  background: #1a73e8;
+}
+#notice-count {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-left: 8px;
+}
+.notice-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f0f4ff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+  color: #222;
+}
+.notice-item:hover {
+  background: #dbeafe;
+}
+.notice-title {
+  font-weight: 500;
+}
+.notice-count {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #2d8cf0;
+}
+.header-with-logo {
+  display: flex; /* 로고와 제목을 가로로 배치 */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  margin-bottom: 30px; /* 리스트와의 간격 */
+  position: relative; /* ::before 의사 요소를 위한 기준점 */
+  overflow: hidden; /* 배경 이미지가 넘칠 경우 숨김 */
+
+  /* 배경 워터마크 스타일은 ::before 의사 요소로 이동 */
+  background-image: none; /* 기존 배경 이미지 삭제 */
+  opacity: 1; /* 기존 투명도 삭제 */
+}
+
+.header-with-logo::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%; /* 부모(.header-with-logo) 너비에 맞춤 */
+  height: 100%; /* 부모(.header-with-logo) 높이에 맞춤 */
+  background-image: url('images/logo.png'); /* 로고 이미지 경로 */
+  background-repeat: no-repeat; /* 반복 없음 */
+  background-position: center center; /* 의사 요소 중앙에 배치 */
+  background-size: 120px; /* 배경 이미지 크기 (필요에 따라 조절) */
+  opacity: 0.15; /* 투명도 조절 */
+  transform: translate(-50%, -50%); /* 정중앙 정렬 */
+  z-index: -1; /* 다른 콘텐츠 아래에 배치 */
+  pointer-events: none; /* 워터마크 위 클릭 방지 */
+}
+
+h1 {
+  color: #222; /* 글자 색상 원래대로 */
+  /* border-bottom: 2px solid #222; */ /* 복고풍 디자인에서 사용 */
+  padding-bottom: 10px;
+  margin-bottom: 0; /* header-with-logo에 마진 적용 */
+  /* display: inline-block; */ /* flex 컨테이너 안에서는 필요 없음 */
+  /* vertical-align: middle; */ /* flex 컨테이너 안에서는 필요 없음 */
+  /* margin-left: 15px; */ /* 로고 삭제로 간격 필요 없음 */
+  position: relative; /* z-index를 워터마크보다 위로 올리기 위한 기준점 */
+  z-index: 1; /* 워터마크 위에 표시 */
+}
+
+.kmnu-logo {
+  height: 60px; /* 로고 높이 조정 */
+  width: auto; /* 비율 유지 */
+  vertical-align: middle; /* 세로 중앙 정렬 */
+} 
