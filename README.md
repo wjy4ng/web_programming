@@ -1,4 +1,4 @@
-### 각 기능 별 Branch 개발 방법
+### 📌 각 기능 별 Branch 개발 방법
 ```bash
 # git clone
 git clone https://github.com/wjy4ng/web_programming.git
