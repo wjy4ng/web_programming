@@ -59,8 +59,8 @@ const CATEGORIES = [
 // 각 게시판별 새 공지 개수 fetch (임시 랜덤)
 async function fetchNoticeCount(board) {
   try {
-    // Vercel에 배포된 서버리스 함수의 실제 URL로 변경
-    const proxyUrl = `https://web-programming-amber.vercel.app/api/proxy?url=${encodeURIComponent(board.url)}`;
+    // 로컬 proxy.js 서버 URL로 변경
+    const proxyUrl = `http://localhost:3001/proxy?url=${encodeURIComponent(board.url)}`;
 
     const res = await fetch(proxyUrl);
     const html = await res.text();
@@ -187,7 +187,7 @@ document.addEventListener('mouseover', async (event) => {
     previewArea.style.top = `${mouseY + offsetY}px`;
 
     try {
-      const proxyUrl = `https://web-programming-amber.vercel.app/api/proxy?url=${encodeURIComponent(boardUrl)}`;
+      const proxyUrl = `http://localhost:3001/proxy?url=${encodeURIComponent(boardUrl)}`;
       const res = await fetch(proxyUrl);
       const html = await res.text();
       const parser = new DOMParser();
