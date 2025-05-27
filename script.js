@@ -59,7 +59,11 @@ const CATEGORIES = [
 // 각 게시판별 새 공지 개수 fetch (임시 랜덤)
 async function fetchNoticeCount(board) {
   try {
-    const proxyUrl = `http://localhost:3001/proxy?url=${encodeURIComponent(board.url)}`;
+    // Vercel에 배포될 서버리스 함수의 URL로 변경 (배포 후 실제 URL로 교체 필요)
+    // 예시: const proxyUrl = `https://YOUR_VERCEL_PROJECT_NAME.vercel.app/api/proxy?url=${encodeURIComponent(board.url)}`;
+    // TODO: 아래 URL을 Vercel 배포 후 얻은 실제 URL로 변경해주세요.
+    const proxyUrl = `https://[YOUR_VERCEL_PROJECT_NAME].vercel.app/api/proxy?url=${encodeURIComponent(board.url)}`;
+
     const res = await fetch(proxyUrl);
     const html = await res.text();
     console.log(`==== ${board.name} HTML ====`);
