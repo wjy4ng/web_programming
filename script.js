@@ -189,7 +189,7 @@ document.addEventListener('mouseover', async (event) => {
     previewArea.style.top = `${mouseY + offsetY}px`;
 
     try {
-      const proxyUrl = `http://localhost:3001/proxy?url=${encodeURIComponent(boardUrl)}`;
+      const proxyUrl = `https://web-programming-khaki.vercel.app/?url=${encodeURIComponent(boardUrl)}`;
       const res = await fetch(proxyUrl);
       const html = await res.text();
       const parser = new DOMParser();
