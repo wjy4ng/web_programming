@@ -193,19 +193,41 @@ document.addEventListener('mouseover', async (event) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
 
-      // 공지 제목을 파싱하는 셀렉터 (실제 웹 페이지 구조에 맞게 조정 필요)
-      const noticeTitles = doc.querySelectorAll('td a');
-      let previewContent = `<h3>${boardTitle}</h3><ul>`;
-      const maxPreviews = Math.min(noticeCount, 5); // 새 공지 개수와 5 중 작은 값만큼 미리보기
+      // 공지 목록을 파싱하고 오늘 날짜 공지만 필터링
+      const noticeRows = doc.querySelectorAll('tr:not(.notice)'); // 고정 공지 제외
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // 날짜만 비교하기 위해 시간을 초기화
 
-      if (noticeTitles.length === 0) {
-        previewContent += '<li>공지사항이 없습니다.</li>';
+      const todayNotices = [];
+
+      noticeRows.forEach(row => {
+        const dateCell = row.querySelector('.td-date');
+        const titleElement = row.querySelector('td a');
+
+        if (dateCell && titleElement) {
+          let dateStr = dateCell.textContent.trim();
+          // 날짜 형식을 yyyy-mm-dd로 변환하여 Date 객체 생성
+          dateStr = dateStr.replace(/\./g, '-');
+          const noticeDate = new Date(dateStr);
+
+          // 날짜만 비교
+          if (noticeDate.getFullYear() === today.getFullYear() &&
+              noticeDate.getMonth() === today.getMonth() &&
+              noticeDate.getDate() === today.getDate()) {
+            todayNotices.push({ title: titleElement.textContent.trim(), url: titleElement.href });
+          }
+        }
+      });
+
+      let previewContent = `<h3>${boardTitle}</h3><ul>`;
+      const maxPreviews = 5; // 오늘 공지 중 최대 5개만 표시
+
+      if (todayNotices.length === 0) {
+        previewContent += '<li>오늘 올라온 공지사항이 없습니다.</li>';
       } else {
-        for (let i = 0; i < Math.min(noticeTitles.length, maxPreviews); i++) {
-          const titleElement = noticeTitles[i];
-          const title = titleElement.textContent.trim();
-          // 필요하다면 링크도 포함: const link = titleElement.href;
-          previewContent += `<li>${title}</li>`;
+        for (let i = 0; i < Math.min(todayNotices.length, maxPreviews); i++) {
+          const notice = todayNotices[i];
+          previewContent += `<li>${notice.title}</li>`;
         }
       }
       previewContent += '</ul>';
